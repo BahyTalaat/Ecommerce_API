@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Ecommerce.Models;
@@ -26,12 +27,16 @@ namespace Ecommerce.Controllers
         [ResponseType(typeof(Product))]
         public IHttpActionResult GetProduct(int id)
         {
+
             Product product = db.Products.Find(id);
             if (product == null)
             {
                 return NotFound();
             }
-
+            string path = System.Web.HttpContext.Current.Request.MapPath("~\\image\\"+product.Image);
+            //var url = HttpContext.Current.Request.Url;
+            //product.Image = "/Image/" + product.Image;
+            product.Image = path;
             return Ok(product);
         }
 

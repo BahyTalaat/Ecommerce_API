@@ -18,7 +18,7 @@ namespace Ecommerce.Controllers
         public async Task<string> FileUploading()
         {
             var ctx = HttpContext.Current;
-            var root = ctx.Server.MapPath("~/App_Data");
+            var root = ctx.Server.MapPath("~/Image");
             var provider = new MultipartFormDataStreamProvider(root);
 
             try

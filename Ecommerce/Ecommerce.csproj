@@ -130,18 +130,19 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202104062020057_init.cs" />
-    <Compile Include="Migrations\202104062020057_init.Designer.cs">
-      <DependentUpon>202104062020057_init.cs</DependentUpon>
+    <Compile Include="Migrations\202105092100543_init.cs" />
+    <Compile Include="Migrations\202105092100543_init.Designer.cs">
+      <DependentUpon>202105092100543_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202104072146344_init2.cs" />
-    <Compile Include="Migrations\202104072146344_init2.Designer.cs">
-      <DependentUpon>202104072146344_init2.cs</DependentUpon>
+    <Compile Include="Migrations\202105092230350_init1.cs" />
+    <Compile Include="Migrations\202105092230350_init1.Designer.cs">
+      <DependentUpon>202105092230350_init1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDBContext.cs" />
@@ -171,11 +172,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202104062020057_init.resx">
-      <DependentUpon>202104062020057_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105092100543_init.resx">
+      <DependentUpon>202105092100543_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104072146344_init2.resx">
-      <DependentUpon>202104072146344_init2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105092230350_init1.resx">
+      <DependentUpon>202105092230350_init1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -117,6 +117,34 @@ namespace Ecommerce.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.Order",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        User_Id = c.String(maxLength: 128),
+                        Date = c.DateTime(nullable: false),
+                        TotalPrice = c.Double(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
+                .Index(t => t.User_Id);
+            
+            CreateTable(
+                "dbo.ProductOrders",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Order_Id = c.Int(nullable: false),
+                        Product_Id = c.Int(nullable: false),
+                        Quntaty = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Order", t => t.Order_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Products", t => t.Product_Id, cascadeDelete: true)
+                .Index(t => t.Order_Id)
+                .Index(t => t.Product_Id);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -131,6 +159,9 @@ namespace Ecommerce.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Order", "User_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.ProductOrders", "Product_Id", "dbo.Products");
+            DropForeignKey("dbo.ProductOrders", "Order_Id", "dbo.Order");
             DropForeignKey("dbo.Carts", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
@@ -139,6 +170,9 @@ namespace Ecommerce.Migrations
             DropForeignKey("dbo.Products", "Category_Id", "dbo.Categories");
             DropForeignKey("dbo.ProductCarts", "Cart_Id", "dbo.Carts");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.ProductOrders", new[] { "Product_Id" });
+            DropIndex("dbo.ProductOrders", new[] { "Order_Id" });
+            DropIndex("dbo.Order", new[] { "User_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
@@ -149,6 +183,8 @@ namespace Ecommerce.Migrations
             DropIndex("dbo.ProductCarts", new[] { "Cart_Id" });
             DropIndex("dbo.Carts", new[] { "User_Id" });
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.ProductOrders");
+            DropTable("dbo.Order");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");

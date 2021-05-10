@@ -24,12 +24,12 @@ namespace Ecommerce.Models
         [Required, MinLength(10)]
         public string Description { get; set; }
 
-        [Required]
+    
         public string Image { get; set; }
         public int Discount { get; set; }
 
         [ForeignKey("Category")]
-        public int Category_Id { get; set; }
+        public int? Category_Id { get; set; }
         [JsonIgnore]
         public virtual Category Category { get; set; }
         [JsonIgnore]

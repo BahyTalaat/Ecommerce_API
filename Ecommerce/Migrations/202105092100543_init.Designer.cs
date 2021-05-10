@@ -6,14 +6,14 @@ namespace Ecommerce.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
+    [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
     public sealed partial class init : IMigrationMetadata
     {
         private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "202104062020057_init"; }
+            get { return "202105092100543_init"; }
         }
         
         string IMigrationMetadata.Source

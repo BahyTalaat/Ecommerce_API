@@ -33,10 +33,12 @@ namespace Ecommerce.Controllers
             {
                 return NotFound();
             }
-            string path = System.Web.HttpContext.Current.Request.MapPath("~\\image\\"+product.Image);
-            //var url = HttpContext.Current.Request.Url;
+            //string path = System.Web.HttpContext.Current.Request.MapPath("~\\image\\"+product.Image);
+            
+            var url = HttpContext.Current.Request.Url;
+            product.Image = url.Scheme + "://" + url.Host + ":" + url.Port + "/Image/" + product.Image;
             //product.Image = "/Image/" + product.Image;
-            product.Image = path;
+            //product.Image = path;
             return Ok(product);
         }
 

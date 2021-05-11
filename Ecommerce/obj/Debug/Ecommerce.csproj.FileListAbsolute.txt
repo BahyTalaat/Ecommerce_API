@@ -286,3 +286,5 @@ C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.cs
 C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.csproj.CopyComplete
 C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.dll
 C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.pdb
+C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\bin\System.Web.Http.Cors.dll
+C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\bin\System.Web.Http.Cors.xml

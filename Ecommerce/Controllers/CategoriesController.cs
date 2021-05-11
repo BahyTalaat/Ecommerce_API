@@ -6,13 +6,14 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using Ecommerce.Models;
 
 namespace Ecommerce.Controllers
 {
-   
     public class CategoriesController : ApiController
     {
         private ApplicationDBContext db = new ApplicationDBContext();
@@ -20,6 +21,12 @@ namespace Ecommerce.Controllers
         // GET: api/Categories
         public IQueryable<Category> GetCategories()
         {
+            var url = HttpContext.Current.Request.Url;
+            foreach (var category in db.Categories)
+            {
+                category.Image = url.Scheme + "://" + url.Host + ":" + url.Port + "/Image/" + category.Image;
+            }
+
             return db.Categories;
         }
 
@@ -27,12 +34,14 @@ namespace Ecommerce.Controllers
         [ResponseType(typeof(CategoryDto))]
         public IHttpActionResult GetCategory(int id)
         {
+            var url = HttpContext.Current.Request.Url;
             Category category = db.Categories.Find(id);
 
             CategoryDto catDto = new CategoryDto();
 
             catDto.Id = category.Id;
             catDto.Name = category.Name;
+            catDto.Image = url.Scheme +"://"+url.Host+":"+url.Port+"/Image/"+ category.Image;
             List<ProductDto> productslist = new List<ProductDto>();
 
             for(var i=0;i< category.Products.Count;i++)
@@ -40,7 +49,7 @@ namespace Ecommerce.Controllers
                 ProductDto prodDto = new ProductDto();
                 
                 prodDto.Image = category.Products[i].Image;
-                prodDto.Name = category.Products[i].Name;
+                prodDto.Name = url.Scheme + "://" + url.Host + ":" + url.Port + "/Image/" + category.Products[i].Name;
                 prodDto.Price = category.Products[i].Price;
                 prodDto.Quentity = category.Products[i].Quentity;
                 prodDto.Discount = category.Products[i].Discount;
@@ -110,6 +119,7 @@ namespace Ecommerce.Controllers
         }
 
         // DELETE: api/Categories/5
+        [HttpDelete]
         [ResponseType(typeof(Category))]
         public IHttpActionResult DeleteCategory(int id)
         {

@@ -15,6 +15,8 @@ namespace Ecommerce.Models
 
         [Required]
         public string Name { get; set; }
+        [Required]
+        public string Image { get; set; }
         [JsonIgnore]
         public virtual List<Product> Products { get; set; }
     }

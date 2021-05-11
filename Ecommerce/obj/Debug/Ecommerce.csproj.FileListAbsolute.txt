@@ -288,3 +288,4 @@ C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.dl
 C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.pdb
 C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\bin\System.Web.Http.Cors.dll
 C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\bin\System.Web.Http.Cors.xml
+C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.Migrations.init4.resources

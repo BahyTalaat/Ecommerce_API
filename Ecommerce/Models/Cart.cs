@@ -15,7 +15,7 @@ namespace Ecommerce.Models
         [Key]
         public string User_Id { get; set; }
         [JsonIgnore]
-        public virtual IdentityUser User { get; set; }
+        public virtual ApplicationIdentityUser User { get; set; }
         [JsonIgnore]
         public virtual List<ProductCart> ProductsCart { get; set; }
     }

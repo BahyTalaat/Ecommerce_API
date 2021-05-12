@@ -58,12 +58,10 @@ namespace Ecommerce
                 //OWin Cors
                 context.OwinContext.Response.Headers.Add(" Access - Control - Allow - Origin ", new[] { "*" });
                 //Check
-                UserStore<IdentityUser> store =
-                        new UserStore<IdentityUser>(new ApplicationDBContext());
 
-                UserManager<IdentityUser> manager =
-                    new UserManager<IdentityUser>(store);
-                IdentityUser user = await manager.FindAsync(context.UserName, context.Password);
+                ApplicationUserManager manager =
+                    new ApplicationUserManager(new ApplicationDBContext());
+                ApplicationIdentityUser user = await manager.FindAsync(context.UserName, context.Password);
                 if (user == null)
                 {
                     context.SetError("grant_error", "username & password Not Valid");//invalid

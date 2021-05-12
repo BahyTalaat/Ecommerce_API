@@ -289,3 +289,6 @@ C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.pd
 C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\bin\System.Web.Http.Cors.dll
 C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\bin\System.Web.Http.Cors.xml
 C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.Migrations.init4.resources
+C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.Migrations.init6.resources
+C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.Migrations.init7.resources
+C:\Users\kerol\Desktop\New folder\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.Migrations.init8.resources

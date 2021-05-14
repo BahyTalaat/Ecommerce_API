@@ -7,25 +7,44 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 
 namespace Ecommerce.Controllers
 {
+    
     public class AccountsController : ApiController
     {
-        public IHttpActionResult Get(string id)
+        [HttpGet]
+        [Authorize]
+        [Route("api/Accounts")]
+        public IHttpActionResult Get()
         {
+            var user_id = User.Identity.GetUserId();
             ApplicationUserManager manager = new ApplicationUserManager(new ApplicationDBContext());
-            ApplicationIdentityUser user = manager.FindById(id);
+            ApplicationIdentityUser user = manager.FindById(user_id);
+
+            var url = HttpContext.Current.Request.Url;
+
+            UserModel userDto = new UserModel();
+            userDto.Name=user.UserName;
+            userDto.Password=user.PasswordHash;
+            userDto.Image= url.Scheme +"://" + url.Host + ":" + url.Port + "/Image/" + user.Image;
+            userDto.Gender=user.Gender;
+            userDto.Email=user.Email;
+
 
             if (user == null)
                 return NotFound();
-            return Ok(user);
+            return Ok(userDto);
         }
 
-        public IHttpActionResult Put(string id, UserModel model)
+        [Authorize]
+        [Route("api/Accounts")]
+        public IHttpActionResult Put(UserModel model)
         {
+            var user_id = User.Identity.GetUserId();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -33,7 +52,7 @@ namespace Ecommerce.Controllers
             ApplicationUserManager manager = new ApplicationUserManager(new ApplicationDBContext());
 
 
-            ApplicationIdentityUser user = manager.FindById(id);
+            ApplicationIdentityUser user = manager.FindById(user_id);
             if (user == null)
             {
                 return NotFound();
@@ -42,9 +61,9 @@ namespace Ecommerce.Controllers
             {
                 user.UserName = model.Name;
                 user.PasswordHash = manager.PasswordHasher.HashPassword(model.Password);
-                ////user.Gender = model.Gender;
-                //user.BirthDate = model.BirthDate;
-                //user.Image = model.Image;
+                user.Gender = model.Gender;
+                user.Image = model.Image;
+                user.Email = model.Email;
                 IdentityResult result = manager.Update(user);
                 if (result.Succeeded)
                 {
@@ -57,48 +76,12 @@ namespace Ecommerce.Controllers
             }
         }
 
-        //[HttpPost]
-        //public async Task<IHttpActionResult> registration(UserModel account)
-        //{
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-        //    try
-        //    {
-        //        UserStore<IdentityUser> store =
-        //        new UserStore<IdentityUser>(new ApplicationDBContext());
-
-        //        UserManager<IdentityUser> manager =
-        //       new UserManager<IdentityUser>(store);
-        //        IdentityUser user = new IdentityUser();
-        //        user.UserName = account.Name;
-        //        user.PasswordHash = account.Password;
-        //        user.Email = account.Email;
-
-        //        IdentityResult result = await manager.CreateAsync(user, account.Password);
-        //        if (result.Succeeded)
-        //        {
-        //            return Ok("ss");
-
-        //            //return Created("", "register Sucess " + user.UserName);
-        //        }
-        //        else
-        //            return Ok("aa");
-        //        //return BadRequest((result.Errors.ToList())[0]);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Ok("22");
-        //        //return BadRequest(ex.Message);
-        //    }
-
-        //}
 
 
         [HttpPost]
         [ResponseType(typeof(UserModel))]
+
+        [Route("api/Accounts")]
         public async Task<IHttpActionResult> Post(UserModel account)
         {
 

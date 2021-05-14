@@ -24,12 +24,12 @@ namespace Ecommerce.Controllers
 
         [ResponseType(typeof(ProductCartDto))]
         [HttpGet]
-        
         public IHttpActionResult Get_Cart()
         {
+
             var user_id = User.Identity.GetUserId();
             var product_Cart = db.ProductCarts.Where(pc => pc.Cart_Id == user_id).ToList();
-
+            var url = HttpContext.Current.Request.Url;
 
             ProductCartDto proCart = new ProductCartDto();
             List<ProductDto> prodtoList = new List<ProductDto>();
@@ -37,9 +37,10 @@ namespace Ecommerce.Controllers
             {
                 var pro=db.Products.Find(item.Product_Id);
                 ProductDto prodto = new ProductDto();
-                prodto.Image = pro.Image;
+                prodto.Image = url.Scheme + "://" + url.Host + ":" + url.Port + "/Image/" + pro.Image;
                 prodto.Name = pro.Name;
                 prodto.Price = pro.Price;
+                prodto.Id = pro.Id;
                 //prodto.Quentity = pro.Quentity;
                 prodto.Quentity=item.Quntity;
                 prodto.Discount = pro.Discount;
@@ -55,7 +56,7 @@ namespace Ecommerce.Controllers
         // http://localhost:13149/api/Cart?Product_id=1
 
         [HttpPost]
-        public IHttpActionResult Post_Pro(int Product_id)
+        public IHttpActionResult Post_Pro(int Product_id,int qty)
         {
             var user_ID = User.Identity.GetUserId();
 
@@ -75,7 +76,7 @@ namespace Ecommerce.Controllers
             var productInCart = db.ProductCarts.Where(p => p.Cart_Id == user_ID && p.Product_Id == Product_id).FirstOrDefault();
             if (productInCart != null)
             {
-                productInCart.Quntity += 1;
+                productInCart.Quntity += qty;
                 db.Entry(productInCart).State = EntityState.Modified;
                 try
                 {
@@ -97,7 +98,7 @@ namespace Ecommerce.Controllers
 
 
             }
-            ProductCart pro_cart = new ProductCart { Cart_Id = user_ID, Product_Id = Product_id, Quntity = 1 };
+            ProductCart pro_cart = new ProductCart { Cart_Id = user_ID, Product_Id = Product_id, Quntity = qty };
 
             db.ProductCarts.Add(pro_cart);
             db.SaveChanges();
@@ -109,16 +110,36 @@ namespace Ecommerce.Controllers
         }
 
 
+        [HttpPut]
+        //[Route("api/cart/{productId}/{qty}")]
+        public IHttpActionResult Put(int id,ProductDto product)
+        {
+            var user_id = User.Identity.GetUserId();
+            ProductCart productCart = db.ProductCarts.Where(p => p.Cart_Id == user_id && p.Product_Id == id).FirstOrDefault();
+
+            productCart.Quntity = product.Quentity;
+
+            db.Entry(productCart).State = EntityState.Modified;
+            try
+            {
+                db.SaveChanges();
+                return Ok("Product edited in cart");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         // Delete Productfrom Cart
-        // http://localhost:13149/api/Cart?Product_id=1
-        public IHttpActionResult Delete_Product(int Product_id)
+        public IHttpActionResult DeleteProduct(int id)
         {
             var user_id = User.Identity.GetUserId();
             var product_Cart = db.ProductCarts.Where(pc => pc.Cart_Id == user_id).ToList();
 
             foreach (var item in product_Cart)
             {
-                if (item.Product_Id == Product_id)
+                if (item.Product_Id == id)
                 {
                     ProductCart proCart = db.ProductCarts.Find(item.Id);
                     if (proCart == null)

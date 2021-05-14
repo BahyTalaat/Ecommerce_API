@@ -41,12 +41,12 @@ namespace Ecommerce.Migrations
                         Price = c.Double(nullable: false),
                         Quentity = c.Int(nullable: false),
                         Description = c.String(nullable: false),
-                        Image = c.String(nullable: false),
+                        Image = c.String(),
                         Discount = c.Int(nullable: false),
-                        Category_Id = c.Int(nullable: false),
+                        Category_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Categories", t => t.Category_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Categories", t => t.Category_Id)
                 .Index(t => t.Category_Id);
             
             CreateTable(
@@ -55,6 +55,7 @@ namespace Ecommerce.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false),
+                        Image = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             

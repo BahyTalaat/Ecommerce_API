@@ -139,17 +139,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202105092100543_init.cs" />
-    <Compile Include="Migrations\202105092100543_init.Designer.cs">
-      <DependentUpon>202105092100543_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105092230350_init1.cs" />
-    <Compile Include="Migrations\202105092230350_init1.Designer.cs">
-      <DependentUpon>202105092230350_init1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105110100031_init4.cs" />
-    <Compile Include="Migrations\202105110100031_init4.Designer.cs">
-      <DependentUpon>202105110100031_init4.cs</DependentUpon>
+    <Compile Include="Migrations\202105111700292_init.cs" />
+    <Compile Include="Migrations\202105111700292_init.Designer.cs">
+      <DependentUpon>202105111700292_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDBContext.cs" />
@@ -180,14 +172,8 @@
     <Folder Include="Image\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202105092100543_init.resx">
-      <DependentUpon>202105092100543_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105092230350_init1.resx">
-      <DependentUpon>202105092230350_init1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105110100031_init4.resx">
-      <DependentUpon>202105110100031_init4.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105111700292_init.resx">
+      <DependentUpon>202105111700292_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

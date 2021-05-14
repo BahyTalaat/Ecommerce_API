@@ -3,9 +3,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -75,12 +77,33 @@ namespace Ecommerce
                                                                                                    //fields 
                     claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
                     claims.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
-                    if (manager.IsInRole(user.Id, "Admin"))
-                        claims.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+                    var userRoles = manager.GetRoles(user.Id);
+                    foreach(string roleName in userRoles)
+                    {
+                        claims.AddClaim(new Claim(ClaimTypes.Role, roleName));
+                    }
+                    var additionalData = new AuthenticationProperties(new Dictionary<string, string> {
+                    {
+                    "roles",Newtonsoft.Json.JsonConvert.SerializeObject(userRoles)
+                    }
+                    });
+                    var token = new AuthenticationTicket(claims, additionalData);
+                   
+                    //if (manager.IsInRole(user.Id, "Admin"))
+                    //    claims.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
 
-                    context.Validated(claims);//card field NAme,image,...role
+                    context.Validated(token);//card field NAme,image,...role
                 }
                 //fields Token
+            }
+
+            public override Task TokenEndpoint(OAuthTokenEndpointContext context)
+            {
+                foreach(KeyValuePair<string,string> property in context.Properties.Dictionary)
+                {
+                    context.AdditionalResponseParameters.Add(property.Key, property.Value);
+                }
+                return Task.FromResult<object>(null);
             }
         }
     }

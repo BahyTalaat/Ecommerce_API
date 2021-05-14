@@ -8,10 +8,11 @@ namespace Ecommerce.Models
 {
     public class UserModel
     {
+
         [Required]
         public string Name { get; set; }
 
-        [DataType(DataType.EmailAddress)]
+        //[DataType(DataType.EmailAddress)]
         [Required]
         public string Email { get; set; }
 
@@ -21,5 +22,14 @@ namespace Ecommerce.Models
 
         [Compare("Password")]
         public string confirmPassword { get; set; }
+
+        public Gender Gender { set; get; }
+
+        //[Required]
+        //[DataType(DataType.Date)]
+        //public DateTime BirthDate { get; set; }
+
+        [Required]
+        public string Image { get; set; }
     }
 }

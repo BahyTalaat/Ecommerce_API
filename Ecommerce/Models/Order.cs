@@ -15,7 +15,7 @@ namespace Ecommerce.Models
         [ForeignKey("User")]
         public string User_Id { get; set; }
 
-        public virtual IdentityUser User { get; set; }
+        public virtual ApplicationIdentityUser User { get; set; }
 
         public List<ProductOrder> productOrders { get; set; }
 

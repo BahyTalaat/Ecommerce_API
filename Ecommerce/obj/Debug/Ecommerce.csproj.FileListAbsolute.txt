@@ -98,3 +98,4 @@ D:\AAA_ITI\Agular\Project\Api\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.csproj
 D:\AAA_ITI\Agular\Project\Api\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.dll
 D:\AAA_ITI\Agular\Project\Api\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.pdb
 D:\AAA_ITI\Agular\Project\Api\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.csprojAssemblyReference.cache
+D:\AAA_ITI\Agular\Project\Api\Ecommerce_API\Ecommerce\obj\Debug\Ecommerce.Migrations.addFaviorate.resources

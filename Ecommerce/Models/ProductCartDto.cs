@@ -7,9 +7,6 @@ namespace Ecommerce.Models
 {
     public class ProductCartDto
     {
-
-        public List<ProductDto> Productss { get; set; }
-
-      
+        public List<ProductDto> Productss { get; set;}
     }
 }

@@ -133,6 +133,7 @@
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\FaviorateController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -155,11 +156,16 @@
     <Compile Include="Migrations\202105121415241_init8.Designer.cs">
       <DependentUpon>202105121415241_init8.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105151611571_addFaviorate.cs" />
+    <Compile Include="Migrations\202105151611571_addFaviorate.Designer.cs">
+      <DependentUpon>202105151611571_addFaviorate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDBContext.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryDto.cs" />
+    <Compile Include="Models\FaviorateProduct.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDto.cs" />
     <Compile Include="Models\Product.cs" />
@@ -195,6 +201,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105121415241_init8.resx">
       <DependentUpon>202105121415241_init8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105151611571_addFaviorate.resx">
+      <DependentUpon>202105151611571_addFaviorate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

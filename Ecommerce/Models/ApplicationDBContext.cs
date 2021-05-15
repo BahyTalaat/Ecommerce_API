@@ -52,5 +52,6 @@ namespace Ecommerce.Models
         public virtual DbSet<ProductCart> ProductCarts { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<ProductOrder> ProductOrders { get; set; }
+        public virtual DbSet<FaviorateProduct> FaviorateProducts { get; set; }
     }
 }

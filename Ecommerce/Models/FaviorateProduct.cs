@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -6,18 +6,17 @@ using System.Web;
 
 namespace Ecommerce.Models
 {
-    public class ProductOrder
+    public class FaviorateProduct
     {
         public int Id { get; set; }
 
-        [ForeignKey("Order")]
-        public int Order_Id { get; set; }
-        public virtual Order Order { set; get; }
+        [ForeignKey("User")]
+        public string User_Id { get; set; }
+        public virtual ApplicationIdentityUser User { get; set; }
+
 
         [ForeignKey("Product")]
         public int Product_Id { get; set; }
         public virtual Product Product { set; get; }
-
-        public int Quntaty { get; set; }
     }
 }

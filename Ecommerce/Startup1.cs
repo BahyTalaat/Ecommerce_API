@@ -74,7 +74,11 @@ namespace Ecommerce
                     claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
                     claims.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
                     if (manager.IsInRole(user.Id, "Admin"))
+                    {
                         claims.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+                    }
+                    //else
+                    //    claims.AddClaim(new Claim(ClaimTypes.Role, ""));
 
                     context.Validated(claims);//card field NAme,image,...role
                 }

@@ -56,6 +56,7 @@ namespace Ecommerce.Controllers
         // http://localhost:13149/api/Cart?Product_id=1
 
         [HttpPost]
+        [Route("api/Cart/{Product_id}/{qty}")]
         public IHttpActionResult Post_Pro(int Product_id,int qty)
         {
             var user_ID = User.Identity.GetUserId();

@@ -20,8 +20,26 @@ namespace Ecommerce.Controllers
         // GET: api/Products
         public IQueryable<Product> GetProducts()
         {
+            var url = HttpContext.Current.Request.Url;
+            foreach(var pro in db.Products)
+            {
+                pro.Image = url.Scheme + "://" + url.Host + ":" + url.Port + "/Image/" + pro.Image;
+            }
             return db.Products;
         }
+
+        [Route("api/search/{productName}")]
+        public IQueryable<Product> GetByName(string productName)
+        {
+            var url = HttpContext.Current.Request.Url;
+            var products = db.Products.Where(e => e.Name.Contains(productName));
+            foreach (var pro in products)
+            {
+                pro.Image = url.Scheme + "://" + url.Host + ":" + url.Port + "/Image/" + pro.Image;
+            }
+            return products;
+        }
+
 
         // GET: api/Products/5
         [ResponseType(typeof(Product))]

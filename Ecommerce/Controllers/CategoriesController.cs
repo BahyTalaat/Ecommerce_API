@@ -30,6 +30,21 @@ namespace Ecommerce.Controllers
             return db.Categories;
         }
 
+        
+        [Route("api/ProductsCategory/{Cat_id}")]
+        public IEnumerable<Product> GetCategoryProducts(int Cat_id)
+        {
+
+            var Products = db.Products.Where(p=>p.Category_Id== Cat_id).ToList();
+            foreach (var product in Products)
+            {
+                var url = HttpContext.Current.Request.Url;
+                product.Image = url.Scheme + "://" + url.Host + ":" + url.Port + "/Image/" + product.Image;
+            }
+            return Products;
+            
+        }
+
         // GET: api/Categories/5
         [ResponseType(typeof(CategoryDto))]
         public IHttpActionResult GetCategory(int id)

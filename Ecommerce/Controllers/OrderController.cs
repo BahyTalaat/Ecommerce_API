@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -15,6 +16,7 @@ namespace Ecommerce.Controllers
     public class OrderController : ApiController
     {
         private ApplicationDBContext db = new ApplicationDBContext();
+       [HttpPost]
         public IHttpActionResult Post_Order()
         {
             var user_id = User.Identity.GetUserId();
@@ -58,41 +60,84 @@ namespace Ecommerce.Controllers
 
         [ResponseType(typeof(OrderDto))]
         [HttpGet]
+        //[Authorize(Roles ="Admin")]
         public IHttpActionResult Get_Order()
         {
+            //var user_id = User.Identity.GetUserId();
+
+            //Order order = db.Orders.Where(o => o.User_Id == user_id).FirstOrDefault();
+            ////List<Order> orders = db.Orders.Where(o => o.User_Id == user_id).ToList();
+
+            //var product_Order = db.ProductOrders.Where(po => po.Order_Id == order.Id).ToList();
+
+
+            //List<ProductDto> prodtoList = new List<ProductDto>();
+
+            //double totalPrice = 0;
+            //foreach (var item in product_Order)
+            //{
+            //    var pro = db.Products.Find(item.Product_Id);
+            //    ProductDto prodto = new ProductDto();
+            //    prodto.Image = pro.Image;
+            //    prodto.Name = pro.Name;
+            //    prodto.Price = pro.Price;
+            //    prodto.Quentity = item.Quntaty;
+            //    prodto.Discount = pro.Discount;
+            //    prodto.Description = pro.Description;
+            //    totalPrice += (pro.Price * item.Quntaty);
+            //    prodtoList.Add(prodto);
+
+            //    }
+
+            //    order.TotalPrice = totalPrice;
+            //    db.Entry(order).State = EntityState.Modified;
+            //    db.SaveChanges();
+
+            //OrderDto orderDto = new OrderDto { Id = order.Id, Date = order.Date, TotalPrice = order.TotalPrice,Products= prodtoList };
+
+            //return Ok(orderDto);
+
             var user_id = User.Identity.GetUserId();
 
-            Order order = db.Orders.Where(o => o.User_Id == user_id).FirstOrDefault();
-            var product_Order = db.ProductOrders.Where(po => po.Order_Id == order.Id).ToList();
-
            
-            List<ProductDto> prodtoList = new List<ProductDto>();
+            List<Order> orders = db.Orders.Where(o => o.User_Id == user_id).ToList();
 
-            double totalPrice = 0;
-            foreach (var item in product_Order)
+            List<OrderDto> OrdersDtos = new List<OrderDto>();
+            var url = HttpContext.Current.Request.Url;
+           
+            foreach (var order in orders)
             {
-                var pro = db.Products.Find(item.Product_Id);
-                ProductDto prodto = new ProductDto();
-                prodto.Image = pro.Image;
-                prodto.Name = pro.Name;
-                prodto.Price = pro.Price;
-                prodto.Quentity = item.Quntaty;
-                prodto.Discount = pro.Discount;
-                prodto.Description = pro.Description;
-                totalPrice += (pro.Price * item.Quntaty);
-                prodtoList.Add(prodto);
-                
-                }
 
+                var product_Order = db.ProductOrders.Where(po => po.Order_Id == order.Id).ToList();
+
+                List<ProductDto> prodtoList = new List<ProductDto>();
+
+                double totalPrice = 0;
+
+
+                foreach (var item in product_Order)
+                {
+                    var pro = db.Products.Find(item.Product_Id);
+                    ProductDto prodto = new ProductDto();
+                    prodto.Image = url.Scheme + "://" + url.Host + ":" + url.Port + "/Image/" + pro.Image;
+                    prodto.Name = pro.Name;
+                    prodto.Price = pro.Price;
+                    prodto.Quentity = item.Quntaty;
+                    prodto.Discount = pro.Discount;
+                    prodto.Description = pro.Description;
+                    totalPrice += (pro.Price * item.Quntaty);
+                    prodtoList.Add(prodto);
+
+                }
                 order.TotalPrice = totalPrice;
                 db.Entry(order).State = EntityState.Modified;
                 db.SaveChanges();
+                OrderDto orderDto = new OrderDto{ Id = order.Id, Date = order.Date, TotalPrice = order.TotalPrice, Products = prodtoList };
+                OrdersDtos.Add(orderDto);
 
-            OrderDto orderDto = new OrderDto { Id = order.Id, Date = order.Date, TotalPrice = order.TotalPrice,Products= prodtoList };
-
-            return Ok(orderDto);
-
+            }
+            return Ok(OrdersDtos);
 
         }
-        }
+    }
 }

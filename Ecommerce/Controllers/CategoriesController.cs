@@ -63,12 +63,12 @@ namespace Ecommerce.Controllers
             {
                 ProductDto prodDto = new ProductDto();
                 
-                prodDto.Image = category.Products[i].Image;
-                prodDto.Name = url.Scheme + "://" + url.Host + ":" + url.Port + "/Image/" + category.Products[i].Name;
+                prodDto.Image = url.Scheme + "://" + url.Host + ":" + url.Port + "/Image/" + category.Products[i].Image;
+                prodDto.Name = category.Products[i].Name;
                 prodDto.Price = category.Products[i].Price;
                 prodDto.Quentity = category.Products[i].Quentity;
                 prodDto.Discount = category.Products[i].Discount;
-
+                prodDto.Id = category.Products[i].Id;
                 productslist.Add(prodDto);
                
             }

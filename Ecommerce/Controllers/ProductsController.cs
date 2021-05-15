@@ -20,6 +20,14 @@ namespace Ecommerce.Controllers
         // GET: api/Products
         public IQueryable<Product> GetProducts()
         {
+<<<<<<< HEAD
+            var url = HttpContext.Current.Request.Url;
+            foreach(var pro in db.Products)
+            {
+                pro.Image = url.Scheme + "://" + url.Host + ":" + url.Port + "/Image/" + pro.Image;
+            }
+            return db.Products;
+=======
             var Products  = db.Products;
             foreach(var product in Products)
             {
@@ -27,7 +35,21 @@ namespace Ecommerce.Controllers
                 product.Image = url.Scheme + "://" + url.Host + ":" + url.Port + "/Image/" + product.Image;
             }
             return Products;
+>>>>>>> 999f5b74dcc2ae341c3635f2d0c97702a46c7c69
         }
+
+        [Route("api/search/{productName}")]
+        public IQueryable<Product> GetByName(string productName)
+        {
+            var url = HttpContext.Current.Request.Url;
+            var products = db.Products.Where(e => e.Name.Contains(productName));
+            foreach (var pro in products)
+            {
+                pro.Image = url.Scheme + "://" + url.Host + ":" + url.Port + "/Image/" + pro.Image;
+            }
+            return products;
+        }
+
 
         // GET: api/Products/5
         [ResponseType(typeof(Product))]

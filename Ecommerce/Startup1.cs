@@ -75,6 +75,14 @@ namespace Ecommerce
                                                                                                    //fields 
                     claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
                     claims.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+<<<<<<< HEAD
+                    if (manager.IsInRole(user.Id, "Admin"))
+                    {
+                        claims.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+                    }
+                    //else
+                    //    claims.AddClaim(new Claim(ClaimTypes.Role, ""));
+=======
                     var userRoles = manager.GetRoles(user.Id);
                     foreach(string roleName in userRoles)
                     {
@@ -89,6 +97,7 @@ namespace Ecommerce
                    
                     //if (manager.IsInRole(user.Id, "Admin"))
                     //    claims.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+>>>>>>> 999f5b74dcc2ae341c3635f2d0c97702a46c7c69
 
                     context.Validated(token);//card field NAme,image,...role
                 }

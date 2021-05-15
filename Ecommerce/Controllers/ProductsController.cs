@@ -20,7 +20,13 @@ namespace Ecommerce.Controllers
         // GET: api/Products
         public IQueryable<Product> GetProducts()
         {
-            return db.Products;
+            var Products  = db.Products;
+            foreach(var product in Products)
+            {
+                var url = HttpContext.Current.Request.Url;
+                product.Image = url.Scheme + "://" + url.Host + ":" + url.Port + "/Image/" + product.Image;
+            }
+            return Products;
         }
 
         // GET: api/Products/5

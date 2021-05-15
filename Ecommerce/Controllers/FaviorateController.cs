@@ -52,6 +52,7 @@ namespace Ecommerce.Controllers
 
         ////////////////////
         [HttpPost]
+        [Route("api/addFaviorate/{Product_id}")]
         public IHttpActionResult Post_Pro(int Product_id)
         {
             var user_ID = User.Identity.GetUserId();
@@ -74,6 +75,10 @@ namespace Ecommerce.Controllers
 
             return Ok("Product Add To Faviorate cart");
         }
+
+
+        [HttpDelete]
+        [Route("api/DeleteFaviorate/{id}")]
         public IHttpActionResult DeleteProduct(int id)
         {
             var user_id = User.Identity.GetUserId();

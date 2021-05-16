@@ -1,5 +1,8 @@
 namespace Ecommerce.Migrations
 {
+    using Ecommerce.Models;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -26,6 +29,16 @@ namespace Ecommerce.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            ApplicationDBContext db = new ApplicationDBContext();
+            ApplicationUserManager manager = new ApplicationUserManager(db);
+
+            var user = new ApplicationIdentityUser { UserName = "admin", Email = "example.gmail.com", Gender = Gender.Male };
+            manager.Create(user, "12345678");
+
+            var roleManger = new ApplicationRoleManager(db);
+            roleManger.Create(new IdentityRole("Admin"));
+
+            manager.AddToRole(user.Id, "Admin");
         }
     }
 }
